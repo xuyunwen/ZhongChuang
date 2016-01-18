@@ -4,7 +4,7 @@ class CreateNovels < ActiveRecord::Migration
       t.string :name
       t.binary :cover
       t.references :category, index: true, foreign_key: true
-      t.integer :status
+      t.integer :status, default: 0
 
       t.timestamps null: false
     end
