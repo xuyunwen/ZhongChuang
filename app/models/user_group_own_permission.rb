@@ -7,6 +7,6 @@ class UserGroupOwnPermission < ActiveRecord::Base
 
   validates :user_group_id, presence: true
   validates :permission_id, presence: true
-  validates :user_level, presence: true, default:0
+  validates :user_level, presence:true
 
 end
