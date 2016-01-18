@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  novel_id: 
+  number: 1
+  author_id: 
+  status: 1
+  cite_id: 
+  title: MyString
+  content: MyText
+  summary: MyText
+  subsequent_summary: MyText
+  foreshadowing: MyText
+
+two:
+  novel_id: 
+  number: 1
+  author_id: 
+  status: 1
+  cite_id: 
+  title: MyString
+  content: MyText
+  summary: MyText
+  subsequent_summary: MyText
+  foreshadowing: MyText

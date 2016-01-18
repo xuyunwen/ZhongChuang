@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_group_id: 
+  user_level: 1
+  permission_id: 
+
+two:
+  user_group_id: 
+  user_level: 1
+  permission_id: 
