@@ -50,5 +50,7 @@ admins=[
 admin_user_group=UserGroup.find_by_name('Admin')
 (0..admins.length-1).each{|i|
   user=admins[i]
-  admin_user_group.users.create!(id:i, name:user[0], nick_name:user[1], level:user[2], password_digest:user[3])
+  password_digest=User.digest user[3]
+  admin_user_group.users.create!(id:i, name:user[0], nick_name:user[1],
+                                 level:user[2], password_digest: password_digest)
 }
