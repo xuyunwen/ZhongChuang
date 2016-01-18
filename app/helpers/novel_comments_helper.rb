@@ -1,0 +1,2 @@
+module NovelCommentsHelper
+end
