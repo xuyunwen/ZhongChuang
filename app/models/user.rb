@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   belongs_to :user_group
-  has_many :chapters
+  has_many :chapters, class_name: 'Chapter', foreign_key: :author_id
   has_many :chapter_comments
   has_many :chapter_votes
   has_many :novel_comments

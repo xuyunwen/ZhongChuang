@@ -3,7 +3,7 @@ class CreateChapters < ActiveRecord::Migration
     create_table :chapters do |t|
       t.references :novel, index: true, foreign_key: true
       t.integer :number
-      t.references :author, class_name: 'Users', index: true, foreign_key: true
+      t.references :author, index: true, foreign_key: true
       t.integer :status
       t.references :cite, index: true, foreign_key: true
       t.string :title, index:true

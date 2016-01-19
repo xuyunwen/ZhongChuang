@@ -1,6 +1,6 @@
 class Chapter < ActiveRecord::Base
   belongs_to :novel
-  belongs_to :author, class_name: 'User'
+  belongs_to :author, class_name: 'User', foreign_key: :author_id
 
   belongs_to :cite, class_name: 'Chapter'
   has_many :followings, class_name: 'Chapter', foreign_key: :cite_id
