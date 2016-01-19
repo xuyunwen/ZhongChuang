@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 20160118095957) do
     t.integer  "novel_id"
     t.integer  "number"
     t.integer  "author_id"
-    t.integer  "user_id_id"
     t.integer  "status"
     t.integer  "cite_id"
     t.string   "title"
@@ -65,7 +64,6 @@ ActiveRecord::Schema.define(version: 20160118095957) do
   add_index "chapters", ["novel_id"], name: "index_chapters_on_novel_id"
   add_index "chapters", ["number"], name: "index_chapters_on_number"
   add_index "chapters", ["title"], name: "index_chapters_on_title"
-  add_index "chapters", ["user_id_id"], name: "index_chapters_on_user_id_id"
 
   create_table "novel_comments", force: :cascade do |t|
     t.integer  "novel_id"
