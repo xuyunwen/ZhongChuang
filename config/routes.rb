@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
 
-  resource :chapters
 
   root 'static_pages#home'
 
@@ -15,12 +14,10 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :users
-
   resources :user_groups
-
   resources :novels
-
   resources :categories
+  resources :chapters
 
 
   # Example resource route with options:

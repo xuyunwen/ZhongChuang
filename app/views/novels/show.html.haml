@@ -10,7 +10,7 @@
       %p 名字: #{@novel.name}
       %p
         类型:
-        = link_to @novel.category.name #, @novel.category
+        = link_to @novel.category.name , @novel.category
       %p
         内容简介
         = @novel.description
