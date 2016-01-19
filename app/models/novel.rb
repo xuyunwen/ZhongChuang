@@ -19,4 +19,8 @@ class Novel < ActiveRecord::Base
     status == Status.FINISHED
   end
 
+  def self.working_novels
+    Novel.all.where(status: Status::WORKING)
+  end
+
 end

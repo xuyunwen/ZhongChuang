@@ -1,2 +1,12 @@
 - provide :title, t('page_title.home')
-%p 这是主页
+
+%h3 连载小说
+
+.novels
+  - Novel.working_novels.each do |novel|
+    .novel
+      = cover_tag novel
+      %p
+        = novel.name
+
+

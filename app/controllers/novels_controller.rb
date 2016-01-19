@@ -6,6 +6,7 @@ class NovelsController < ApplicationController
   end
 
   def show
+    @novel=Novel.find(params[:id])
   end
 
   def create

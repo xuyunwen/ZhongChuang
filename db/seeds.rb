@@ -98,7 +98,7 @@ Dir.entries(zuo_dir).each do |sub|
   if File.file?(file) and file.end_with?('.txt')
     chapter=Chapter.new
     chapter.number=sub[/\d+/]
-    puts "开始创建章节#{file}"
+   # puts "开始创建章节#{file}"
     chapter.content=File.read(file)
     chapter.author_id=User.first.id
     chapter.novel_id=novel.id
@@ -108,4 +108,15 @@ Dir.entries(zuo_dir).each do |sub|
     chapter.save
   end
 end
+
+
+10.times{ |i|
+  novel=Novel.new
+  novel.name="左耳#{i}"
+  novel.description='一部激荡的青春热血小说'
+  novel.category_id=Category.find_by_name('言情').id
+  novel.status=Novel::Status::WORKING
+  novel.save
+
+}
 
