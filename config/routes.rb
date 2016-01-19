@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+
+  resource :chapters
+
   root 'static_pages#home'
 
   get    'help'    => 'static_pages#help'
@@ -17,7 +20,8 @@ Rails.application.routes.draw do
 
   resources :novels
 
-  resource :categories
+  resources :categories
+
 
   # Example resource route with options:
   #   resources :products do

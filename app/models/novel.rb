@@ -24,6 +24,6 @@ class Novel < ActiveRecord::Base
   end
 
   def all_finished_chapters
-    self.chapters.where(status: Status::FINISHED)
+    self.chapters.where(status: Chapter::Status::LOCK)
   end
 end

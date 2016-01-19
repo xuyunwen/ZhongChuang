@@ -10,13 +10,12 @@
       %p 名字: #{@novel.name}
       %p
         类型:
-        = link_to @novel.category.name, @novel.category
+        = link_to @novel.category.name #, @novel.category
       %p
         内容简介
         = @novel.description
-
   .col-md-8
     .finish_chapters
       - @novel.all_finished_chapters.each do |chapter|
-        %li= link_to chapter.full_title
+        %li= link_to chapter.full_title, chapter
 
