@@ -37,6 +37,11 @@ class User < ActiveRecord::Base
 
   ############ 实例方法 ###########
 
+  def has_permission?(permission_id)
+    self.user_group.user_group_own_permissions
+        .where('user_level >= ? and permission_id = ?', self.level, permission_id).any?
+  end
+
   # Remembers a user in the database for use in persistent sessions.
   def remember
     self.remember_token = User.new_token

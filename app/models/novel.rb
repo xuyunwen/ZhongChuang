@@ -8,4 +8,15 @@ class Novel < ActiveRecord::Base
   validates :category_id, presence: true
   validates_associated :category
 
+  class Status
+    WORKING=0
+    FINISHED=1
+  end
+  def working?
+    status == Status.WORKING
+  end
+  def finished?
+    status == Status.FINISHED
+  end
+
 end

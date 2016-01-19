@@ -3,6 +3,7 @@ class CreateNovels < ActiveRecord::Migration
     create_table :novels do |t|
       t.string :name
       t.binary :cover
+      t.text :description
       t.references :category, index: true, foreign_key: true
       t.integer :status, default: 0
 

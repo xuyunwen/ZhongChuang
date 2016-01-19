@@ -6,32 +6,54 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
 ## 用户分组初始化数据
-group_names=%w[Common Editor Admin]
-(0..group_names.length-1).each { |i|
-  UserGroup.create!(id: i, name: group_names[i])
+user_groups=[
+    [UserGroup::COMMON_USER_GROUP_ID, 'Common'],
+    [UserGroup::EDITOR_USER_GROUP_ID, 'Editor'],
+    [UserGroup::ADMIN_USER_GROUP_ID, 'Admin'],
+  ]
+user_groups.each{|i|
+  UserGroup.create!(id: i[0], name: i[1])
 }
 
-
 ## 权限初始化数据
-permission_describes=%w[读小说 写小说 评论 更改章节状态 提升用户等级 删除用户 更改用户组]
-(0..permission_describes.length-1).each { |i|
-  Permission.create!(id:i, describe: permission_describes[i])
+permissions=[
+    [Permission::READ_NOVEL, '读小说'],
+    [Permission::WRITE_NOVEL, '写小说'],
+    [Permission::COMMENT_NOVEL, '评论小说'],
+    [Permission::CHANGE_NOVEL_STATUS, '修改小说状态'],
+    [Permission::CHANGE_CHAPTER_STATUS, '修改章节状态'],
+    [Permission::CHANGE_USER_GROUP, '修改用户分组'],
+    [Permission::DELETE_USER, '删除用户'],
+    [Permission::CHANGE_USER_LEVEL, '修改用户等级'],
+  ]
+permissions.each{|i|
+  Permission.create!(id:i[0], describe: i[1])
 }
 
 
 ## 初始化权限
 user_group_own_permissions = [
-    [0, 0,	0,	0],	# 普通0级用户可读小说
-    [1, 0,	0,	1],	# 普通0级用户可写小说
-    [2,	0,	1,	2],	# 普通1级用户可写评论
-    [3,	1,	0,	0],	# 主编0级用户可读小说
-    [4,	1,	0,	1],	# 主编0级用户可写小说
-    [5,	1,	0,	2],	# 主编0级用户可写评论
-    [6,	1,	0,	3]	# 主编0级用户可更改用户状态
+    [ UserGroup::COMMON_USER_GROUP_ID,	0,	Permission::READ_NOVEL          ],	# 普通0级用户可读小说
+    [ UserGroup::COMMON_USER_GROUP_ID,	0,	Permission::WRITE_NOVEL         ],	# 普通0级用户可写小说
+    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::COMMENT_NOVEL       ],	# 普通1级用户可写评论
+    [	UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::READ_NOVEL          ],	# 主编0级用户可读小说
+    [	UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::WRITE_NOVEL         ],	# 主编0级用户可写小说
+    [	UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::COMMENT_NOVEL       ],	# 主编0级用户可写评论
+    [	UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::CHANGE_NOVEL_STATUS],	# 主编0级用户可更改用户状态
+    [	UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::CHANGE_CHAPTER_STATUS],	# 主编0级用户可更改用户状态
+    # 管理员拥有所有权限
+    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::READ_NOVEL          ],
+    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::WRITE_NOVEL         ],
+    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::COMMENT_NOVEL       ],
+    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::CHANGE_NOVEL_STATUS],
+    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::CHANGE_CHAPTER_STATUS],
+
   ]
-user_group_own_permissions.each{|i|
-  UserGroupOwnPermission.create!(id:i[0], user_group_id:i[1], user_level:i[2], permission_id:i[3])
+(0..user_group_own_permissions.length-1).each{|i|
+  ugop=user_group_own_permissions[i]
+  UserGroupOwnPermission.create!(id:i, user_group_id:ugop[0], user_level:ugop[1], permission_id:ugop[2])
 }
 
 ## 小说分类
@@ -47,10 +69,30 @@ admins=[
     ['liujinghang', ' 刘京杭', 0, 'liujinghang'],
     ['lishunxi', '李顺喜', 0, 'lishunxi'],
   ]
-admin_user_group=UserGroup.find_by_name('Admin')
+admin_user_group=UserGroup.find(UserGroup::ADMIN_USER_GROUP_ID)
 (0..admins.length-1).each{|i|
   user=admins[i]
   password_digest=User.digest user[3]
   admin_user_group.users.create!(id:i, name:user[0], nick_name:user[1],
                                  level:user[2], password_digest: password_digest)
 }
+
+
+
+
+############################ 下面是测试数据 ################
+
+## 添加小说 <左耳>
+
+zuo='test_data/novels/zuo.txt'
+
+novel=Novel.new
+novel.name='左耳'
+novel.description='一部激荡的青春热血小说'
+novel.category_id=Category.find_by_name('言情').id
+novel.status=Novel::Status::WORKING
+novel.save
+
+fh=open(novel_dir + '/abc.txt', 'w')
+fh.write 'adfs'
+fh.close

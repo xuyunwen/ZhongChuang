@@ -11,10 +11,12 @@ class CreateChapters < ActiveRecord::Migration
       t.text :summary
       t.text :subsequent_summary
       t.text :foreshadowing
+      t.boolean :draft, default:true
 
       t.timestamps null: false
     end
     add_index :chapters, :number
     add_index :chapters, [:novel_id, :number, :author_id]
+
   end
 end

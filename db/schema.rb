@@ -54,8 +54,9 @@ ActiveRecord::Schema.define(version: 20160118095957) do
     t.text     "summary"
     t.text     "subsequent_summary"
     t.text     "foreshadowing"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.boolean  "draft",              default: true
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   add_index "chapters", ["author_id"], name: "index_chapters_on_author_id"
@@ -81,10 +82,11 @@ ActiveRecord::Schema.define(version: 20160118095957) do
   create_table "novels", force: :cascade do |t|
     t.string   "name"
     t.binary   "cover"
+    t.text     "description"
     t.integer  "category_id"
-    t.integer  "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "status",      default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "novels", ["category_id"], name: "index_novels_on_category_id"
@@ -117,6 +119,7 @@ ActiveRecord::Schema.define(version: 20160118095957) do
   end
 
   add_index "user_group_own_permissions", ["permission_id"], name: "index_user_group_own_permissions_on_permission_id"
+  add_index "user_group_own_permissions", ["user_group_id", "user_level", "permission_id"], name: "index_ugop_on_user_group_and_user_level_and_permission"
   add_index "user_group_own_permissions", ["user_group_id"], name: "index_user_group_own_permissions_on_user_group_id"
 
   create_table "user_groups", force: :cascade do |t|
@@ -131,12 +134,12 @@ ActiveRecord::Schema.define(version: 20160118095957) do
     t.string   "name"
     t.string   "nick_name"
     t.binary   "header"
-    t.integer  "user_group_id"
-    t.integer  "level"
+    t.integer  "user_group_id",   default: 0
+    t.integer  "level",           default: 0
     t.string   "password_digest"
     t.string   "remember_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "users", ["name"], name: "index_users_on_name", unique: true

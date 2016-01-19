@@ -1,0 +1,13 @@
+- provide :title, @user.nick_name
+
+.row
+  %aside.col-md-4
+    %section.user_info
+      %h1
+        = header_tag(@user)
+        = @user.nick_name
+      %section.stats
+        看了 x 章小说, 写了 x 章小说
+
+  .col-md-8
+    下面是你写的小说

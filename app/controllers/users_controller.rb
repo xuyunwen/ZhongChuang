@@ -19,10 +19,10 @@ class UsersController < ApplicationController
   end
 
   def create
+    convert_header_data
     @user=User.new(user_params)
     @user.level=0
     @user.user_group_id=common_user_group.id
-    @user.header=get_pic_str(params[:user][:header])
 
     if @user.save
       log_in @user
@@ -35,8 +35,7 @@ class UsersController < ApplicationController
 
 
   def update
-
-    params[:user][:header]=get_pic_str(params[:user][:header])
+    convert_header_data
     if @user.update_attributes(user_params)
       flash[:success] = t('my.notice.update_success')
       redirect_to @user
@@ -62,6 +61,10 @@ class UsersController < ApplicationController
                                     :header)
     end
 
+    def convert_header_data
+      header_data=get_pic_str(params[:user][:header])
+      params[:user][:header]=header_data
+    end
     # Confirms the correct user.
     def correct_user
       @user = User.find(params[:id])

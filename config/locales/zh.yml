@@ -44,7 +44,7 @@ zh:
     # 模型属性定义
     attributes:
       user:
-        name: '名字'
+        name: '用户名'
         password: '密码'
         password_digest: '密码确认'
         password_confirmation: '密码确认'
