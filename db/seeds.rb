@@ -84,7 +84,7 @@ admin_user_group=UserGroup.find(UserGroup::ADMIN_USER_GROUP_ID)
 
 ## 添加小说 <左耳>
 
-zuo='test_data/novels/zuo.txt'
+zuo_dir='test_data/novels/zuo'
 
 novel=Novel.new
 novel.name='左耳'
@@ -93,6 +93,19 @@ novel.category_id=Category.find_by_name('言情').id
 novel.status=Novel::Status::WORKING
 novel.save
 
-fh=open(novel_dir + '/abc.txt', 'w')
-fh.write 'adfs'
-fh.close
+Dir.entries(zuo_dir).each do |sub|
+  file="#{zuo_dir}/#{sub}"
+  if File.file?(file) and file.end_with?('.txt')
+    chapter=Chapter.new
+    chapter.number=sub[/\d+/]
+    puts "开始创建章节#{file}"
+    chapter.content=File.read(file)
+    chapter.author_id=User.first.id
+    chapter.novel_id=novel.id
+    chapter.status=Chapter::Status::LOCK
+    chapter.title=sub[/(?<=_).*(?=.txt)/]
+    chapter.draft=false
+    chapter.save
+  end
+end
+

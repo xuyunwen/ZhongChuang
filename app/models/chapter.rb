@@ -19,7 +19,7 @@ class Chapter < ActiveRecord::Base
   validates :title, presence: true
   validates :content, presence: true
 
-  class ChapterStatus
+  class Status
     ACTIVE=1
     LOCK=2
     TRASH=3
