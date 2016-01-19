@@ -8,4 +8,17 @@ module ApplicationHelper
       page_title + ' | ' + base_title
     end
   end
+
+
+  def to_html(str)
+    out=''
+    str.lines.each{|l| out<< "<p>#{CGI.escapeHTML(l.chop)}</p>"}
+    out.html_safe
+  end
+
+  class String
+    def to_html
+      self
+    end
+  end
 end

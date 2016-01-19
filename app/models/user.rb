@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
 
   def has_permission?(permission_id)
     self.user_group.user_group_own_permissions
-        .where('user_level >= ? and permission_id = ?', self.level, permission_id).any?
+        .where('user_level <= ? and permission_id = ?', self.level, permission_id).any?
   end
 
   # Remembers a user in the database for use in persistent sessions.

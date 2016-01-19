@@ -49,6 +49,7 @@ user_group_own_permissions = [
     [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::COMMENT_NOVEL       ],
     [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::CHANGE_NOVEL_STATUS],
     [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::CHANGE_CHAPTER_STATUS],
+    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::DELETE_USER],
 
   ]
 (0..user_group_own_permissions.length-1).each{|i|

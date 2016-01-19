@@ -1,0 +1,6 @@
+%li
+  = link_to header_tag(user), user
+  = link_to user.name, user
+
+  - if user.has_permission?(Permission::DELETE_USER)
+    = link_to t('pages.delete'), user, method: :delete,  data: { confirm: t('pages.confirm') }

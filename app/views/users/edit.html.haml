@@ -1,0 +1,39 @@
+- provide :title, t('page_title.edit_profile')
+%h1
+  = t('page_title.edit_profile')
+
+.row
+  .col-md-6.col-md-offset-3
+    = form_for(@user, html: { multipart: true }) do |f|
+      = render 'shared/error_messages', object: f.object
+      = f.label :name, t('activerecord.attributes.user.name')
+      = f.text_field :name, class: 'form-control', disabled:true
+
+      = f.label :nick_name, t('activerecord.attributes.user.nick_name')
+      = f.text_field :nick_name, class: 'form-control'
+
+      = f.label :header, t('activerecord.attributes.user.header')
+      = f.file_field :header, class: 'form-control'
+
+      = f.label :old_password, t('activerecord.attributes.user.old_password')
+
+      = f.password_field :old_password, class: 'form-control'
+
+      = f.label :password, t('activerecord.attributes.user.password')
+      = f.password_field :password, class: 'form-control'
+
+      = f.label :password_confirmation, t('activerecord.attributes.user.password_confirmation')
+      = f.password_field :password_confirmation, class: 'form-control'
+
+      = f.submit t('pages.edit'), class: 'btn btn-primary'
+
+
+
+:javascript
+  // 下面的代码用于限制上传文件的大小
+  $('#user_header').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024;
+    if (size_in_megabytes > 50) {
+      alert(#{t('my.errors.login.validations.header_picture_too_big')});
+    }
+  });

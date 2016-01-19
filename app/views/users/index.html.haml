@@ -1,0 +1,11 @@
+- provide :title, t('pages.user_manage')
+
+%h1
+  = t('pages.user_manage')
+
+= will_paginate
+
+%ul.users
+  = render @users
+
+= will_paginate

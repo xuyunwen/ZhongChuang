@@ -36,6 +36,11 @@ class UsersController < ApplicationController
 
   def update
     convert_header_data
+    old_password=params[:user][:old_password]
+    if old_password.blank? or not @user.authenticate(old_password)
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
     if @user.update_attributes(user_params)
       flash[:success] = t('my.notice.update_success')
       redirect_to @user
