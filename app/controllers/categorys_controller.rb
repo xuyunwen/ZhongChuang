@@ -11,7 +11,7 @@ class CategorysController < ApplicationController
   def create
   end
 
-  def destory
+  def destroy
   end
 
   def update

@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_back_or user
+      redirect_back_or root_path
     else
-      flash.now[:danger] = I18n.t 'account_or_password_errorname'
+      flash.now[:danger] = I18n.t('my.errors.login.validations.account_or_password_error')
       render 'new'
     end
   end

@@ -1,12 +1,12 @@
 <footer class="footer">
   <small>
-    众创 by OnePiece Studio with 陈大才, 刘京杭, 李顺喜.
+   <%= t('page_title.main') %>  by OnePiece Studio with 陈大才, 刘京杭, 李顺喜.
   </small>
   <nav>
     <ul>
-      <li><%= link_to "帮助",   help_path %></li>
-      <li><%= link_to "关于",   about_path %></li>
-      <li><%= link_to "联系我们", contact_path %></li>
+      <li><%= link_to t('page_title.help'),   help_path %></li>
+      <li><%= link_to t('page_title.about'),   about_path %></li>
+      <li><%= link_to t('page_title.contact'), contact_path %></li>
     </ul>
   </nav>
 </footer>

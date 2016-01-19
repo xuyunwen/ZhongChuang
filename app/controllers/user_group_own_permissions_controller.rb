@@ -2,7 +2,7 @@ class UserGroupOwnPermissionsController < ApplicationController
   def create
   end
 
-  def destory
+  def destroy
   end
 
   def update

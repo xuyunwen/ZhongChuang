@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_associated :user_group
   validates :user_group_id, presence: true
   validates :name, uniqueness: true, presence: true,
-            format:{with: /\A[a-zA-Z0-9_@$.]+\z/i, message:'用户名请使用字母、数字、_、@、$、.。'}
+            format:{with: /\A[a-zA-Z0-9_@$.]+\z/i, message: I18n.t('my.errors.signup.validations.name')}
   validates :nick_name, presence: true
   validates :user_group_id, presence: true
   validates :level, presence: true

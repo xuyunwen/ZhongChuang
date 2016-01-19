@@ -1,18 +1,20 @@
-- provide :title, '登录'
+- provide :title, t('page_title.signup')
 
-%h1 登录
+%h1
+  = t('page_title.login')
 
 .row
   .col-md-6.col-md-offset-3
     = form_for(:session, url: login_path) do |f|
-      = f.label :name, '用户名'
+      = f.label :name, t('activerecord.attributes.user.name')
       = f.text_field :name, class: 'form-control'
 
-      = f.label :password, '密码'
+      = f.label :password, t('activerecord.attributes.user.password')
       = f.password_field :password, class: 'form-control'
 
       = f.label :remember_me, class: 'checkbox inline' do
         = f.check_box :remember_me
-        %span 记住我
-      = f.submit '登录', class: 'btn btn-primary'
-    %p 新用户? #{link_to '现在注册', signup_path}
+        %span
+          = t('pages.remember_me')
+      = f.submit t('pages.login'), class: 'btn btn-primary'
+    %p #{t('pages.new_user')}? #{link_to t('pages.signup'), signup_path}
