@@ -4,9 +4,9 @@
 
 .novels
   - Novel.working_novels.each do |novel|
-    .novel
-      = cover_tag novel
+    %li.novel
+      = link_to cover_tag(novel), novel
       %p
-        = novel.name
+        = link_to novel.name, novel
 
 

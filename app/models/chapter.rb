@@ -19,10 +19,16 @@ class Chapter < ActiveRecord::Base
   validates :title, presence: true
   validates :content, presence: true
 
+  default_scope { order(:number) }
+
   class Status
     ACTIVE=1
     LOCK=2
     TRASH=3
+  end
+
+  def full_title
+    "第 #{number} 章 #{title}"
   end
 
 end

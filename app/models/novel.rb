@@ -23,4 +23,7 @@ class Novel < ActiveRecord::Base
     Novel.all.where(status: Status::WORKING)
   end
 
+  def all_finished_chapters
+    self.chapters.where(status: Status::FINISHED)
+  end
 end
