@@ -80,3 +80,226 @@ admins=[
 
 
 
+
+############################ 下面是测试数据 ################
+
+########### 帮助方法
+# 从上传的文件流中获取编码的图片数据
+def get_pic_str(stream)
+  return nil unless stream
+  data=stream.read
+  pic_str='data:image/png;base64,'
+  pic_str << Base64.encode64(data)
+  return pic_str
+end
+
+def rand_sentences(min, max)
+  Faker::Lorem.paragraph(min, false, max-min)
+end
+
+def rand_paragraph(min, max)
+  ps=''
+  num=(min..max).to_a.sample
+  num.times{|n|
+    ps << rand_sentences(1, 30) << "\n"
+  }
+  ps
+end
+########## 帮助方法结束
+
+########## 设置开始
+
+production=Rails.env.production?
+generate_img= production ? true : false
+common_user_number= production ? 100 : 10
+editor_user_number= production ? 5 : 5
+novel_number= production ? 100 : 50
+chapter_number= production ? 1000 : 100
+novel_comment_number= production ? 1000 : 200
+chapter_comment_number= production ? 3000 : 300
+chapter_vote_number= production ? 3000 : 500
+role_number= production ? 10 : 10
+
+########## 设置结束
+
+## 创建普通用户
+common_user_number.times do |n|
+  user_name  = Faker::Internet.user_name
+  nick_name = Faker::Name.name
+  level = Faker::Number.between(0,10)
+  password = '123456'
+  header= generate_img ? get_pic_str(open(Faker::Avatar.image)) : nil
+
+  begin
+    UserGroup.common_user_group.users.create(
+        user_name: user_name,
+        nick_name: nick_name,
+        level: level,
+        password: password,
+        password_confirmation: password,
+        header: header
+    )
+  rescue
+# ignored
+  end
+end
+
+## 创建主编
+editor_user_number.times do |n|
+  user_name  = Faker::Internet.user_name
+  nick_name = Faker::Name.name
+  level = Faker::Number.between(0,10)
+  password = '123456'
+  header= generate_img ? get_pic_str(open(Faker::Avatar.image)) : nil
+  begin
+    UserGroup.editor_user_group.users.create(
+        user_name: user_name,
+        nick_name: nick_name,
+        level: level,
+        password: password,
+        password_confirmation: password,
+        header: header
+    )
+  rescue
+# ignored
+  end
+end
+
+
+## 创建小说
+category_ids=Category.all.map{|m| m.id}
+novel_number.times{|n|
+  name=Faker::Book.title
+  description=Faker::Lorem.paragraph
+  category_id=category_ids.sample
+  cover=generate_img ? get_pic_str(open(Faker::Avatar.image)) : nil
+  status=[0,1].sample
+  begin
+    Novel.create(name: name,
+                 description: description,
+                 category_id: category_id,
+                 cover: cover,
+                 status: status
+    )
+  rescue
+# ignored
+  end
+}
+
+## 添加小说评论
+novel_ids=Novel.all.map{|m| m.id}
+user_ids=User.all.map{|m| m.id}
+novel_comment_number.times{ |n|
+  novel_id=novel_ids.sample
+  user_id=user_ids.sample
+  content=rand_sentences(3,15)
+  begin
+    NovelComment.create(novel_id: novel_id,
+                        user_id: user_id,
+                        content: content
+    )
+  rescue
+# ignored
+  end
+}
+
+## 添加小说章节
+chapter_number.times{|n|
+  novel_id=novel_ids.sample
+  number=Novel.find(novel_id).active_chapter_num
+  content=rand_paragraph(10, 20)
+  author_id=user_ids.sample
+  status=Chapter::Status::LOCK
+  title=Faker::Book.title
+  summary=Faker::Lorem.sentence(3)
+  sss=Faker::Lorem::sentence(3)
+  fs=Faker::Lorem::sentence(3)
+  draft=false
+  begin
+    Chapter.create(
+        novel_id: novel_id,
+        number: number,
+        content: content,
+        author_id: author_id,
+        status: status,
+        title: title,
+        summary: summary,
+        subsequent_summary: sss,
+        foreshadowing: fs,
+        draft: false
+    )
+  rescue
+# ignored
+  end
+}
+
+## 添加章节评论
+chapter_ids=Chapter.all.map{|m| m.id}
+user_ids=User.all.map{|m| m.id}
+chapter_comment_number.times{ |n|
+  chapter_id=chapter_ids.sample
+  user_id=user_ids.sample
+  content=rand_sentences(3,15)
+  begin
+    ChapterComment.create(chapter_id: chapter_id,
+                          user_id: user_id,
+                          content: content
+    )
+  rescue
+# ignored
+  end
+}
+
+## 添加章节投票
+chapter_vote_number.times{|n|
+  chapter_id=chapter_ids.sample
+  User.all.sample.vote_chapter(chapter_id, [true,false].sample)
+}
+
+## 添加小说角色
+role_number.times{|n|
+  novel_id=novel_ids.sample
+  author=user_ids.sample
+  name=Faker::Name.name
+  profile=rand_sentences(3,10)
+  begin
+    Role.create(
+        novel_id: novel_id,
+        author_id: author,
+        name: name,
+        profile: profile
+    )
+  rescue
+# ignored
+  end
+}
+
+## 添加小说 <左耳>
+
+zuo_dir='test_data/novels/zuo'
+
+novel=Novel.new
+novel.name='左耳'
+novel.description='一部激荡的青春热血小说'
+novel.category_id=Category.find_by_name('言情').id
+novel.status=Novel::Status::WORKING
+novel.save
+
+Dir.entries(zuo_dir).each do |sub|
+  file="#{zuo_dir}/#{sub}"
+  if File.file?(file) and file.end_with?('.txt')
+    chapter=Chapter.new
+    chapter.number=sub[/\d+/]
+    # puts "开始创建章节#{file}"
+    chapter.content=File.read(file)
+    chapter.author_id=User.first.id
+    chapter.novel_id=novel.id
+    chapter.status=Chapter::Status::LOCK
+    chapter.title=sub[/(?<=_).*(?=.txt)/]
+    chapter.draft=false
+    chapter.save
+  end
+end
+
+
+

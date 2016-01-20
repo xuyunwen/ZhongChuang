@@ -8,7 +8,7 @@ class Permission < ActiveRecord::Base
 
       %w(MANAGE_USERS 管理用户),
 
-      %w(MANAGE_CATEGORYS 管理分类),
+      %w(MANAGE_CATEGORIES 管理分类),
 
       %w(MANAGE_NOVELS 管理小说),
 
