@@ -18,20 +18,23 @@ user_groups.each{|i|
 }
 
 ## 权限初始化数据
-permissions=[
-    [Permission::READ_NOVEL, '读小说'],
-    [Permission::WRITE_NOVEL, '写小说'],
-    [Permission::COMMENT_NOVEL, '评论小说'],
-    [Permission::CHANGE_NOVEL_STATUS, '修改小说状态'],
-    [Permission::CHANGE_CHAPTER_STATUS, '修改章节状态'],
-    [Permission::CHANGE_USER_GROUP, '修改用户分组'],
-    [Permission::DELETE_USER, '删除用户'],
-    [Permission::CHANGE_USER_LEVEL, '修改用户等级'],
-  ]
-permissions.each{|i|
-  Permission.create!(id:i[0], describe: i[1])
-}
-
+# permissions=[
+#     [Permission::READ_NOVEL, '读小说'],
+#     [Permission::WRITE_NOVEL, '写小说'],
+#     [Permission::COMMENT_NOVEL, '评论小说'],
+#     [Permission::CHANGE_NOVEL_STATUS, '修改小说状态'],
+#     [Permission::CHANGE_CHAPTER_STATUS, '修改章节状态'],
+#     [Permission::CHANGE_USER_GROUP, '修改用户分组'],
+#     [Permission::DELETE_USER, '删除用户'],
+#     [Permission::CHANGE_USER_LEVEL, '修改用户等级'],
+#   ]
+# permissions.each{|i|
+#   Permission.create!(id:i[0], describe: i[1])
+# }
+Permission.permissions.length.times do |i|
+   Permission.create!(id:i, describe: Permission.permissions[i][1])
+  # eval("#{permissions[i][0]}=#{i}")
+end
 
 ## 初始化权限
 user_group_own_permissions = [
@@ -107,15 +110,17 @@ end
 ########## 帮助方法结束
 
 ########## 设置开始
-generate_img=false
-common_user_number=50
-editor_user_number=5
-novel_number=50
-chapter_number=1000
-novel_comment_number=500
-chapter_comment_number=3000
-chapter_vote_number=5000
-role_number=10
+
+production=Rails.env.production?
+generate_img= production ? true : false
+common_user_number= production ? 100 : 10
+editor_user_number= production ? 5 : 5
+novel_number= production ? 100 : 50
+chapter_number= production ? 1000 : 100
+novel_comment_number= production ? 1000 : 200
+chapter_comment_number= production ? 3000 : 300
+chapter_vote_number= production ? 3000 : 500
+role_number= production ? 10 : 10
 
 ########## 设置结束
 
@@ -268,7 +273,5 @@ Dir.entries(zuo_dir).each do |sub|
     chapter.save
   end
 end
-
-
 
 
