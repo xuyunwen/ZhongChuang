@@ -6,23 +6,23 @@ class Permission < ActiveRecord::Base
 
       %w(VIEW_USERS 查看所有用户),
 
-      %w(MANAGE_USER 管理用户),
+      %w(MANAGE_USERS 管理用户),
 
-      %w(MANAGE_CATEGORY 管理分类),
+      %w(MANAGE_CATEGORYS 管理分类),
 
-      %w(MANAGE_NOVEL 管理小说),
+      %w(MANAGE_NOVELS 管理小说),
 
-      %w(MANAGE_CHAPTER 管理章节),
+      %w(MANAGE_CHAPTERS 管理章节),
 
-      %w(COMMENT_NOVEL 评论小说),
+      %w(COMMENT_NOVELS 评论小说),
 
-      %w(COMMENT_CHAPTER 评论章节),
+      %w(COMMENT_CHAPTERS 评论章节),
 
-      %w(VOTE_CHAPTER 章节投票),
+      %w(VOTE_CHAPTERS 章节投票),
 
-      %w(MANAGE_ROLE 管理角色),
+      %w(MANAGE_ROLES 管理角色),
 
-      %w(WRITE_NOVEL 写章节),
+      %w(WRITE_CHAPTERS 写章节),
   ]
 
   @@all_permissions.length.times do |i|

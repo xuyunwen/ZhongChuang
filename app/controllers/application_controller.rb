@@ -22,6 +22,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def has_permission(permission)
+    unless current_user.has_permission?(permission)
+      flash[:notice]= t('my.notice.no_permission')
+      redirect_to root_path
+    end
+  end
+
   require 'base64'
 
   # 从上传的文件流中获取编码的图片数据

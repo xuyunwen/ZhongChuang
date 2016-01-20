@@ -1,8 +1,4 @@
 module UsersHelper
-  def has_permission?(permission)
-
-
-  end
 
   def header_tag(user)
     if user and user.header

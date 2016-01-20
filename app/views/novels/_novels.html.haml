@@ -1,0 +1,25 @@
+.row
+  %h4.col-md-8 连载小说
+  .col-md-4.text-right
+    排序:
+    = link_to '人气', '#'
+    = link_to '名字', '#'
+    = link_to '类型', '#'
+
+
+.novels.row
+  - @novels.where(status: Novel::Status::WORKING).each do |novel|
+    = render 'little_cover_novel', novel: novel
+
+.row
+  %h4.col-md-8  完结小说
+  .col-md-4.text-right
+    排序:
+    = link_to '人气', '#'
+    = link_to '名字', '#'
+    = link_to '类型', '#'
+
+
+.novels.row
+  - @novels.where(status: Novel::Status::FINISHED).each do |novel|
+    = render 'little_cover_novel', novel: novel

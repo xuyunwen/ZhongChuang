@@ -1,0 +1,10 @@
+%li.novel.col-md-3
+  .row
+    = link_to little_cover_tag(novel), novel, class: 'col-md-3'
+    .col-md-9
+      %p
+        = link_to novel.name, novel
+      %p
+        = link_to t('pages.edit'), edit_novel_path(novel)
+        = link_to t('pages.delete'), novel, method: :delete, data: { confirm: t('pages.confirm') }
+

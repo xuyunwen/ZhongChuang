@@ -1,5 +1,10 @@
 class NovelsController < ApplicationController
+
+  before_action :logged_in_user, only: [:edit, :update, :destroy]
+  before_action 'has_permission(Permission::MANAGE_NOVELS)', only: [:edit, :update, :destroy]
+
   def index
+    @novels=Novel.all
   end
 
   def new
@@ -13,6 +18,9 @@ class NovelsController < ApplicationController
   end
 
   def destroy
+    Novel.find(params[:id]).destroy
+    flash[:success] = I18n.t('my.notice.remove_success')
+    redirect_to novels_path
   end
 
   def update
@@ -20,4 +28,6 @@ class NovelsController < ApplicationController
 
   def edit
   end
+
+
 end

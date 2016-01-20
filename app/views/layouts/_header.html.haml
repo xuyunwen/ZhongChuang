@@ -3,12 +3,12 @@
     = link_to t('page_title.main'), root_path, id: "logo"
     %nav
       %ul.nav.navbar-nav.navbar-right
-        %li= link_to t('page_title.main'),   root_path
+        %li= link_to t('page_title.home'),   root_path
         - if logged_in?
           - if current_user.has_permission?(Permission::VIEW_USERS)
             %li= link_to t('pages.header.user_manage'), users_path
 
-          - if current_user.has_permission?(Permission::MANAGE_NOVEL)
+          - if current_user.has_permission?(Permission::MANAGE_NOVELS)
             %li= link_to t('pages.header.novel_manage'), novels_path
 
           %li= link_to t('pages.header.my_bookshelf'), '#'

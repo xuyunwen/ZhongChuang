@@ -1,20 +1,9 @@
 - provide :title, t('pages.header.novel_manage')
 
-%h3 连载小说
+.row
+  %h3.col-md-8
+    = t('pages.header.novel_manage')
+  .col-md-4.text-right
+    = link_to t('pages.add')
 
-.novels
-  - Novel.working_novels.each do |novel|
-    %li.novel
-      = link_to little_cover_tag(novel), novel
-      %p
-        = link_to novel.name, novel
-
-
-%h3 完结小说
-
-.novels
-  - Novel.finished_novels.each do |novel|
-    %li.novel
-      = link_to little_cover_tag(novel), novel
-      %p
-        = link_to novel.name, novel
+= render 'novels' , novels: @novels

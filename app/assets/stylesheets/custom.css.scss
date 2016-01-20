@@ -14,8 +14,16 @@ $gray-medium-light: #eaeaea;
 /* universal */
 
 .little_cover {
-  height:30px;
-  width: 30px;
+  height:60px;
+  width: 60px;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  list-style: none;
 }
 
 body {
@@ -248,10 +256,7 @@ input {
   }
 }
 
-.cover {
-  height:250px;
-  witdth:100px;
-}
+
 
 aside {
   textarea {
@@ -265,4 +270,12 @@ span.picture {
   input {
     border: 0;
   }
+}
+
+
+/* 自定义样式 */
+
+.cover {
+  height:250px;
+  witdth:100px;
 }

@@ -33,18 +33,18 @@ end
 
 ## 初始化权限
 user_group_own_permissions = [
-    [ UserGroup::COMMON_USER_GROUP_ID,	0,	Permission::COMMENT_NOVEL          ],
-    [ UserGroup::COMMON_USER_GROUP_ID,	0,	Permission::COMMENT_CHAPTER         ],
-    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::VOTE_CHAPTER       ],
-    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::MANAGE_ROLE       ],
-    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::WRITE_NOVEL       ],
+    [ UserGroup::COMMON_USER_GROUP_ID,	0,	Permission::COMMENT_NOVELS         ],
+    [ UserGroup::COMMON_USER_GROUP_ID,	0,	Permission::COMMENT_CHAPTERS        ],
+    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::VOTE_CHAPTERS      ],
+    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::MANAGE_ROLES      ],
+    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::WRITE_CHAPTERS       ],
 
     # 主编的权限
-    [ UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::COMMENT_NOVEL          ],
-    [ UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::COMMENT_CHAPTER         ],
-    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::VOTE_CHAPTER       ],
-    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::MANAGE_ROLE       ],
-    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::WRITE_NOVEL       ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::COMMENT_NOVELS          ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::COMMENT_CHAPTERS         ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::VOTE_CHAPTERS       ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::MANAGE_ROLES       ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::WRITE_CHAPTERS       ],
 
 
   ]

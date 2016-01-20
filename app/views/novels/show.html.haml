@@ -7,6 +7,7 @@
   %aside.col-md-4
     %section.novel_info
       = cover_tag(@novel)
+      %p= link_to t('pages.edit'), edit_novel_path
       %p 名字: #{@novel.name}
       %p
         类型:

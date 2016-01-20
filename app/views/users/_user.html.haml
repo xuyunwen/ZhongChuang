@@ -2,5 +2,5 @@
   = link_to header_tag(user), user
   = link_to user.user_name, user
 
-  - if current_user.has_permission?(Permission::MANAGE_USER)
+  - if current_user.has_permission?(Permission::MANAGE_USERS)
     = link_to t('pages.delete'), user, method: :delete,  data: { confirm: t('pages.confirm') }

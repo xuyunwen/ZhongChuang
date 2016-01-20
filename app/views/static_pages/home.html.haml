@@ -1,20 +1,34 @@
 - provide :title, t('page_title.home')
 
-%h3 连载小说
+.row
+  %h3.col-md-8 连载小说
+  .col-md-4.text-right
+    排序:
+    = link_to '人气', '#'
+    = link_to '名字', '#'
+    = link_to '类型', '#'
 
-.novels
+
+.novels.row
   - Novel.working_novels.each do |novel|
-    %li.novel
+    %li.novel.col-md-3
       = link_to cover_tag(novel), novel
       %p
         = link_to novel.name, novel
 
 
-%h3 完结小说
+.row
+  %h3.col-md-8  完结小说
+  .col-md-4.text-right
+    排序:
+    = link_to '人气', '#'
+    = link_to '名字', '#'
+    = link_to '类型', '#'
 
-.novels
+
+.novels.row
   - Novel.finished_novels.each do |novel|
-    %li.novel
+    %li.novel.col-md-3
       = link_to cover_tag(novel), novel
       %p
         = link_to novel.name, novel

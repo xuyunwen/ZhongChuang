@@ -21,6 +21,7 @@ zh:
     delete: '删除'
     edit: '修改'
     confirm: '确定?'
+    add: '添加'
     header:
       my_bookshelf: '我的书架'
       user_manage: '用户管理'
@@ -32,6 +33,7 @@ zh:
     notice:
       success: '成功'
       update_success: '修改成功'
+      no_permission: '对不起, 您没有该权限!'
       add_success: '添加成功'
       remove_success: '删除成功'
       sign_up_success: '注册成功'
