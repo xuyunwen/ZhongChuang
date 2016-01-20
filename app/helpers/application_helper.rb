@@ -16,9 +16,5 @@ module ApplicationHelper
     out.html_safe
   end
 
-  class String
-    def to_html
-      self
-    end
-  end
+
 end

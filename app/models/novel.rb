@@ -23,7 +23,14 @@ class Novel < ActiveRecord::Base
     Novel.all.where(status: Status::WORKING)
   end
 
+  # 获取所有定版章节
   def all_finished_chapters
-    self.chapters.where(status: Chapter::Status::LOCK)
+    self.chapters.where(status: Chapter::Status::LOCK).order(:number)
+  end
+
+  # 获取活跃章节号
+  def active_chapter_num
+    last=all_finished_chapters.last
+    last.nil?? 1 : (last.number + 1)
   end
 end

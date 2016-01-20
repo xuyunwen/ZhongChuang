@@ -14,6 +14,14 @@ class UserGroup < ActiveRecord::Base
     @common_user_group||=UserGroup.find(COMMON_USER_GROUP_ID)
   end
 
+  def self.editor_user_group
+    @editor_user_group||=UserGroup.find(EDITOR_USER_GROUP_ID)
+  end
+
+  def self.admin_user_group
+    @admin_user_group||=UserGroup.find(ADMIN_USER_GROUP_ID)
+  end
+
   def common_user_group?
     id == COMMON_USER_GROUP_ID
   end

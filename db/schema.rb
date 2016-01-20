@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 20160118095957) do
   add_index "user_groups", ["name"], name: "index_user_groups_on_name", unique: true
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
+    t.string   "user_name"
     t.string   "nick_name"
     t.binary   "header"
     t.integer  "user_group_id",   default: 0
@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 20160118095957) do
     t.datetime "updated_at",                  null: false
   end
 
-  add_index "users", ["name"], name: "index_users_on_name", unique: true
   add_index "users", ["user_group_id"], name: "index_users_on_user_group_id"
+  add_index "users", ["user_name"], name: "index_users_on_user_name", unique: true
 
 end

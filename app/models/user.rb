@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
 
   validates_associated :user_group
   validates :user_group_id, presence: true
-  validates :name, uniqueness: true, presence: true,
-            format:{with: /\A[a-zA-Z0-9_@$.]+\z/i, message: I18n.t('my.errors.signup.validations.name')}
+  validates :user_name, uniqueness: true, presence: true,
+            format:{with: /\A[a-zA-Z0-9_@$.]+\z/i, message: I18n.t('my.errors.signup.validations.user_name')}
   validates :nick_name, presence: true
   validates :user_group_id, presence: true
   validates :level, presence: true
@@ -37,18 +37,27 @@ class User < ActiveRecord::Base
 
   ############ 实例方法 ###########
 
+  def vote_chapter(chapter_id, positive)
+    ChapterVote.create(
+        chapter_id: chapter_id,
+        user_id: id,
+        rate: (positive ? level: -level)
+    )
+  end
+
+  # 检查用户是否拥有某权限
   def has_permission?(permission_id)
     self.user_group.user_group_own_permissions
         .where('user_level <= ? and permission_id = ?', self.level, permission_id).any?
   end
 
-  # Remembers a user in the database for use in persistent sessions.
+  # 在数据库中记住我
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
   end
 
-  # Forgets a user.
+  # 忘记我
   def forget
     update_attribute(:remember_digest, nil)
   end
@@ -60,45 +69,8 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(digest).is_password?(token)
   end
 
-  # # Activates an account.
-  # def activate
-  #   update_attribute(:activated,    true)
-  #   update_attribute(:activated_at, Time.zone.now)
-  # end
-
-  # # Sends activation email.
-  # def send_activation_email
-  #   UserMailer.account_activation(self).deliver_now
-  # end
-
-  # # Sets the password reset attributes.
-  # def create_reset_digest
-  #   self.reset_token = User.new_token
-  #   update_attribute(:reset_digest, User.digest(reset_token))
-  #   update_attribute(:reset_sent_at, Time.zone.now)
-  # end
-
-  # # Sends password reset email.
-  # def send_password_reset_email
-  #   UserMailer.password_reset(self).deliver_now
-  # end
-
-  # # Returns true if a password reset has expired.
-  # def password_reset_expired?
-  #   reset_sent_at < 2.hours.ago
-  # end
 
   private
 
-  # # Converts email to all lower-case.
-  # def downcase_email
-  #   self.email = email.downcase
-  # end
-  #
-  # # Creates and assigns the activation token and digest.
-  # def create_activation_digest
-  #   self.activation_token  = User.new_token
-  #   self.activation_digest = User.digest(activation_token)
-  # end
 
 end

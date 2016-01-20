@@ -31,4 +31,5 @@ class Chapter < ActiveRecord::Base
     "第 #{number} 章 #{title}"
   end
 
+
 end
