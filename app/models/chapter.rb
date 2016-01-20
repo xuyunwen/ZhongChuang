@@ -25,6 +25,10 @@ class Chapter < ActiveRecord::Base
     ACTIVE=1
     LOCK=2
     TRASH=3
+
+    def self.names
+      @names||=%w(活跃章节 定稿章节 废弃章节)
+    end
   end
 
   def full_title

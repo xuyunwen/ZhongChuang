@@ -17,4 +17,10 @@ module NovelsHelper
   end
 
 
+  def status_for_select_tag
+    [
+      [Novel::Status.names[0], Novel::Status::WORKING],
+      [Novel::Status.names[1], Novel::Status::FINISHED],
+    ]
+  end
 end

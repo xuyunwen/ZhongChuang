@@ -1,0 +1,47 @@
+
+- title="为 #{@novel.name} 添加新章节"
+- provide :title, title
+
+%h3.text-center
+  = title
+
+%h4.text-center
+  第 #{@chapter.number} 章
+
+.row
+  .col-md-6.col-md-offset-3
+    = form_for(@chapter) do |f|
+
+      = hidden_field_tag :novel_id, @novel.id
+
+      - if @has_manage_novel_permission
+        = f.label :number, t('activerecord.attributes.chapter.number')
+        = f.text_field :number, class: 'form-control'
+
+        = f.label :author_id, t('activerecord.attributes.chapter.author_id')
+        = f.text_field :author_id, class: 'form-control'
+
+        = f.label :status, t('activerecord.attributes.chapter.status')
+        = f.select :status, status_for_select_tag, class: 'form-control'
+
+      = f.label :cite_id, t('activerecord.attributes.chapter.cite_id')
+      = f.select :cite_id, [['abc', 1],['def',2]],class: 'form-control'
+      /= f.collection_select :category_id,Category.all, :id, :name, prompt: true
+
+      = f.label :title, t('activerecord.attributes.chapter.title')
+      = f.text_field :title, class: 'form-control'
+
+
+      = f.label :content, t('activerecord.attributes.chapter.content')
+      = f.text_area :content, class: 'form-control'
+
+      = f.label :summary, t('activerecord.attributes.chapter.summary')
+      = f.text_area :summary, class: 'form-control'
+
+      = f.label :subsequent_summary, t('activerecord.attributes.chapter.subsequent_summary')
+      = f.text_area :subsequent_summary, class: 'form-control'
+
+      = f.label :foreshadowing, t('activerecord.attributes.chapter.foreshadowing')
+      = f.text_area :foreshadowing, class: 'form-control'
+
+      = f.submit t('pages.add'), class: 'btn btn-primary'

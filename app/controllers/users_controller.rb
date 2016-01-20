@@ -2,8 +2,8 @@ class UsersController < ApplicationController
 
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action 'has_permission(Permission::MANAGE_USERS)',   only: [:destroy]
-  before_action 'has_permission(Permission::VIEW_USERS)',   only: [:index]
+  before_action 'has_permission?(Permission::MANAGE_USERS)',   only: [:destroy]
+  before_action 'has_permission?(Permission::VIEW_USERS)',   only: [:index]
 
 
   def index

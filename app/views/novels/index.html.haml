@@ -4,6 +4,6 @@
   %h3.col-md-8
     = t('pages.header.novel_manage')
   .col-md-4.text-right
-    = link_to t('pages.add')
+    = link_to t('pages.add'), new_novel_path, class: 'btn btn-default'
 
 = render 'novels' , novels: @novels

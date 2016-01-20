@@ -1,17 +1,24 @@
 - provide :title, @novel.name
 
-%h3
-  = @novel.name
+.row
+  %h3.col-md-8
+    = @novel.name
+  .col-md-4.text-right
+    = link_to '添加新章节', new_chapter_path(novel:@novel.id), class: 'btn btn-default'
 
 .row
   %aside.col-md-4
     %section.novel_info
       = cover_tag(@novel)
-      %p= link_to t('pages.edit'), edit_novel_path
+      - if current_user.has_permission?(Permission::MANAGE_NOVELS)
+        %p= link_to t('pages.edit'), edit_novel_path
       %p 名字: #{@novel.name}
       %p
         类型:
         = link_to @novel.category.name , @novel.category
+      %p
+        状态:
+        = link_to Novel::Status.names[@novel.status], '#'
       %p
         内容简介
         = @novel.description

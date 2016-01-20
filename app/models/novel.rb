@@ -11,7 +11,14 @@ class Novel < ActiveRecord::Base
   class Status
     WORKING=0
     FINISHED=1
+
+
+    def self.names
+      @names||=%w(连载中 已完结)
+    end
+
   end
+
   def working?
     status == Status.WORKING
   end
@@ -35,5 +42,19 @@ class Novel < ActiveRecord::Base
   def active_chapter_num
     last=all_finished_chapters.last
     last.nil?? 1 : (last.number + 1)
+  end
+
+  def new_chapter_num(user)
+    last=all_finished_chapters.last
+    my_active_chapter_num=chapters.where(author_id: user.id).order(:number).last
+    if my_active_chapter_num.nil?
+      last.nil?? 1 : (last.number + 1)
+    elsif last.nil?
+      my_active_chapter_num.number + 1
+    elsif last.number > my_active_chapter_num.number
+      last.number + 1
+    else
+      my_active_chapter_num.number + 1
+    end
   end
 end

@@ -1,7 +1,7 @@
 class NovelsController < ApplicationController
 
-  before_action :logged_in_user, only: [:edit, :update, :destroy]
-  before_action 'has_permission(Permission::MANAGE_NOVELS)', only: [:edit, :update, :destroy]
+  before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
+  before_action 'has_permission?(Permission::MANAGE_NOVELS)', only: [:edit, :create, :update, :destroy]
 
   def index
     @novels=Novel.all
@@ -16,6 +16,15 @@ class NovelsController < ApplicationController
   end
 
   def create
+    convert_cover_data
+    @novel = Novel.new
+    if @novel.update_attributes(novel_params)
+      flash[:success] = t('my.notice.add_success')
+      redirect_to @novel
+    else
+      render 'new'
+    end
+
   end
 
   def destroy

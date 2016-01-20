@@ -67,9 +67,18 @@ zh:
         cover: '封面'
         category_id: '分类'
         description: '描述'
-        status:
-          working: '连载中'
-          finished: '已完结'
+        status: '状态'
+      chapter:
+        novel_id: '所属小说'
+        number: '章节号'
+        author_id: '作者'
+        status: '章节状态'
+        cite_id: '引用章节'
+        title: '章节标题'
+        content: '章节内容'
+        summary: '内容概要'
+        subsequent_summary: '后续章节概要'
+        foreshadowing: '伏笔'
 
 
     errors:

@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def has_permission(permission)
+  def has_permission?(permission)
     unless current_user.has_permission?(permission)
       flash[:notice]= t('my.notice.no_permission')
       redirect_to root_path
