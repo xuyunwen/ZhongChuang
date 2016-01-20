@@ -68,8 +68,8 @@ categories = %w[玄幻 武侠 都市 仙侠 历史 言情 古典]
 ## 创建管理员用户
 admins=[
     ['chendacai', '陈大才', 3, 'chendacai'],
-    ['liujinghang', ' 刘京杭', 0, 'liujinghang'],
-    ['lishunxi', '李顺喜', 0, 'lishunxi'],
+    ['liujinghang', ' 刘京杭', 1, 'liujinghang'],
+    ['lishunxi', '李顺喜', 1, 'lishunxi'],
   ]
 (0..admins.length-1).each{|i|
   user=admins[i]
@@ -126,7 +126,7 @@ role_number= production ? 10 : 10
 common_user_number.times do |n|
   user_name  = Faker::Internet.user_name
   nick_name = Faker::Name.name
-  level = Faker::Number.between(0,10)
+  level = Faker::Number.between(1,10)
   password = '123456'
   header= generate_img ? get_pic_str(open(Faker::Avatar.image)) : nil
 
@@ -148,7 +148,7 @@ end
 editor_user_number.times do |n|
   user_name  = Faker::Internet.user_name
   nick_name = Faker::Name.name
-  level = Faker::Number.between(0,10)
+  level = Faker::Number.between(1,10)
   password = '123456'
   header= generate_img ? get_pic_str(open(Faker::Avatar.image)) : nil
   begin

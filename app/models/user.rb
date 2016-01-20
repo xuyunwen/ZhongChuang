@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
             format:{with: /\A[a-zA-Z0-9_@$.]+\z/i, message: I18n.t('my.errors.signup.validations.user_name')}
   validates :nick_name, presence: true
   validates :user_group_id, presence: true
-  validates :level, presence: true
+  validates :level, presence: true, numericality: {greater_than: 0}
   validates :password_digest, presence: true
 
   attr_accessor :remember_token #, :activation_token, :reset_token
@@ -38,11 +38,20 @@ class User < ActiveRecord::Base
   ############ 实例方法 ###########
 
   def vote_chapter(chapter_id, positive)
-    ChapterVote.create(
-        chapter_id: chapter_id,
-        user_id: id,
-        rate: (positive ? level: -level)
-    )
+    am=chapter_votes.where(chapter_id: chapter_id)
+    if am.any?
+       if am.first.rate == (positive ? level : -level)
+         return false
+       else
+         am.first.destroy
+       end
+    else
+      ChapterVote.create(
+          chapter_id: chapter_id,
+          user_id: id,
+          rate: (positive ? level: -level)
+      )
+    end
   end
 
   def permissions

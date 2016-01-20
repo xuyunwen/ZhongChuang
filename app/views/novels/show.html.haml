@@ -28,7 +28,8 @@
       - @novel.all_finished_chapters.each do |chapter|
         %li.row
           .col-md-8= link_to chapter.full_title, chapter
-          .col-md-4.text-right= link_to  chapter.author.nick_name, chapter.author
+          - unless chapter.author.nil?
+            .col-md-4.text-right= link_to  chapter.author.nick_name, chapter.author
 
     %h4
       活跃章节
@@ -36,7 +37,9 @@
       - @novel.all_active_chapters.each do |chapter|
         %li.row
           .col-md-8= link_to chapter.full_title, chapter
-          .col-md-4.text-right= link_to  chapter.author.nick_name, chapter.author
+          .col-md-1.text-left= chapter.chapter_votes.sum(:rate)
+          - unless chapter.author.nil?
+            .col-md-3.text-right= link_to  chapter.author.nick_name, chapter.author
 
     %h4
       评论区
@@ -50,7 +53,7 @@
         写评论
       .write_novel_comments
         = form_for(:novel_comment, url: novel_comments_path) do |f|
-          = render 'shared/error_messages', object: f.object
+          /= render 'shared/error_messages', object: f.object
           = hidden_field_tag :novel_id, @novel.id
           = f.text_area :content , class: 'form-control'
           = f.button '提交', class: 'btn btn-default'

@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   def create
     convert_header_data
     @user=User.new(user_params)
-    @user.level=0
+    @user.level=1
     @user.user_group_id=UserGroup.common_user_group.id
 
     if @user.save

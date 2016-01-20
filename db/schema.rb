@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 20160118095957) do
     t.string   "nick_name"
     t.binary   "header"
     t.integer  "user_group_id",   default: 0
-    t.integer  "level",           default: 0
+    t.integer  "level",           default: 1
     t.string   "password_digest"
     t.string   "remember_digest"
     t.datetime "created_at",                  null: false

@@ -8,6 +8,6 @@ class NovelComment < ActiveRecord::Base
   validates :user_id, presence: true
   validates_associated :novel
   validates_associated :user
-  validates :content, presence: true, length: { minimum: 15}
+  validates :content, presence: true #, length: { minimum: 15}
 
 end

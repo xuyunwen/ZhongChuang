@@ -7,7 +7,29 @@
         = header_tag(@user)
         = @user.nick_name
       %section.stats
-        看了 x 章小说, 写了 x 章小说
+        写了 #{@user.chapters.count}  章小说
 
   .col-md-8
     下面是你写的小说
+
+    %table.table
+      %thead
+        %tr
+          %th
+            章节
+          %th
+            书名
+          %th
+            最后更新时间
+
+      - @user.chapters.order(:updated_at).each do |chapter|
+        %tbody
+          %tr
+            %td
+              = link_to "第 #{chapter.number} 章 #{chapter.title}", chapter_path(chapter)
+            %td
+              = link_to "<< #{chapter.novel.name} >>", novel_path(chapter.novel)
+            %td
+              #{chapter.updated_at}
+
+

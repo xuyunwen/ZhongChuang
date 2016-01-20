@@ -17,8 +17,10 @@ Rails.application.routes.draw do
   resources :user_groups
   resources :novels
   resources :categories
-  resources :chapters
+  resources :chapters, only: [:create, :destroy, :show, :update, :edit, :new]
   resources :novel_comments, only: [:create, :destroy, :update]
+  resources :chapter_comments, only: [:create, :destroy, :update]
+  resources :chapter_votes, only: [:create, :destroy, :update]
 
   # Example resource route with options:
   #   resources :products do

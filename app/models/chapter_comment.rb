@@ -7,7 +7,7 @@ class ChapterComment < ActiveRecord::Base
   validates_associated :chapter
   validates_associated :user
 
-  validates :content, presence: true, length: { minimum: 15}
+  validates :content, presence: true #, length: { minimum: 15}
 
 
 end

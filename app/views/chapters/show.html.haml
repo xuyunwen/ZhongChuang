@@ -1,6 +1,35 @@
 - provide :title, @chapter.full_title
 
-%h3= @chapter.full_title
+.row
+  %h3.col-md-6= @chapter.full_title
+  .col-md-6
+    - if logged_in? and @chapter.status == Chapter::Status::ACTIVE
+      = link_to '顶', chapter_votes_path(rate:1, chapter_id:@chapter.id), method: :post, class: 'btn btn-default'
+      = link_to '踩', chapter_votes_path(rate:-1, chapter_id:@chapter.id), method: :post, class: 'btn btn-default'
+    - if logged_in? and ( current_user.id == @chapter.author_id or current_user.has_permission?(Permission::MANAGE_NOVELS))
+      = link_to '修改', edit_chapter_path(@chapter), class: 'btn btn-default'
+    - if logged_in? and (@chapter.status == Chapter::Status::ACTIVE)
+      = link_to '引用', new_chapter_path(cite_id:@chapter.id), class: 'btn btn-default'
+    - if logged_in? and ( current_user.id == @chapter.author_id or current_user.has_permission?(Permission::MANAGE_NOVELS))
+      = link_to '删除', chapter_path(@chapter), method: :delete, class: 'btn btn-default',  data: { confirm: t('pages.confirm') }
 
 .chapter_content
-   = to_html @chapter.content
+  = to_html @chapter.content
+
+
+%h4
+  评论区
+
+.chapter_comments
+  - @chapter.chapter_comments.each do |chapter_comment|
+    = render 'comments', chapter_comment: chapter_comment
+
+- if logged_in?
+  %h4
+    写评论
+  .write_chapter_comments
+    = form_for(:chapter_comment, url: chapter_comments_path) do |f|
+      /= render 'shared/error_messages', object: f.object
+      = hidden_field_tag :chapter_id, @chapter.id
+      = f.text_area :content , class: 'form-control'
+      = f.button '提交', class: 'btn btn-default'

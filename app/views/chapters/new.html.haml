@@ -13,6 +13,8 @@
     = form_for(@chapter) do |f|
       = render 'shared/error_messages', object: f.object
 
+      - unless @chapter.cite_id.blank?
+        = hidden_field_tag :cite_id, @chapter.cite_id
       = hidden_field_tag :novel_id, @novel.id
 
       - if @has_manage_novel_permission
