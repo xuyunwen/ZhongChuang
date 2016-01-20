@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :novels
   resources :categories
   resources :chapters
-
+  resources :novel_comments, only: [:create, :destroy, :update]
 
   # Example resource route with options:
   #   resources :products do

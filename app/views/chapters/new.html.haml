@@ -11,6 +11,7 @@
 .row
   .col-md-6.col-md-offset-3
     = form_for(@chapter) do |f|
+      = render 'shared/error_messages', object: f.object
 
       = hidden_field_tag :novel_id, @novel.id
 
@@ -18,15 +19,15 @@
         = f.label :number, t('activerecord.attributes.chapter.number')
         = f.text_field :number, class: 'form-control'
 
-        = f.label :author_id, t('activerecord.attributes.chapter.author_id')
-        = f.text_field :author_id, class: 'form-control'
+        = label :author_name, t('activerecord.attributes.chapter.author_id')
+        = text_field_tag :author_name, '',class: 'form-control'
 
         = f.label :status, t('activerecord.attributes.chapter.status')
-        = f.select :status, status_for_select_tag, class: 'form-control'
+        = f.select :status, chapter_status_for_select_tag, class: 'form-control'
 
-      = f.label :cite_id, t('activerecord.attributes.chapter.cite_id')
-      = f.select :cite_id, [['abc', 1],['def',2]],class: 'form-control'
-      /= f.collection_select :category_id,Category.all, :id, :name, prompt: true
+      / = f.label :cite_id, t('activerecord.attributes.chapter.cite_id')
+      / = f.select :cite_id, [['abc', 1],['def',2]],class: 'form-control'
+      / = f.collection_select :cite_id, @novel.all_active_chapters.where('author_id != ?', current_user.id), :id, :title, prompt: true
 
       = f.label :title, t('activerecord.attributes.chapter.title')
       = f.text_field :title, class: 'form-control'

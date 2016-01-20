@@ -4,13 +4,14 @@
   %h3.col-md-8
     = @novel.name
   .col-md-4.text-right
-    = link_to '添加新章节', new_chapter_path(novel:@novel.id), class: 'btn btn-default'
+    - if logged_in?
+      = link_to '添加新章节', new_chapter_path(novel:@novel.id), class: 'btn btn-default'
 
 .row
   %aside.col-md-4
     %section.novel_info
       = cover_tag(@novel)
-      - if current_user.has_permission?(Permission::MANAGE_NOVELS)
+      - if logged_in? and current_user.has_permission?(Permission::MANAGE_NOVELS)
         %p= link_to t('pages.edit'), edit_novel_path
       %p 名字: #{@novel.name}
       %p
@@ -25,5 +26,31 @@
   .col-md-8
     .finish_chapters
       - @novel.all_finished_chapters.each do |chapter|
-        %li= link_to chapter.full_title, chapter
+        %li.row
+          .col-md-8= link_to chapter.full_title, chapter
+          .col-md-4.text-right= link_to  chapter.author.nick_name, chapter.author
 
+    %h4
+      活跃章节
+    .active_chapters
+      - @novel.all_active_chapters.each do |chapter|
+        %li.row
+          .col-md-8= link_to chapter.full_title, chapter
+          .col-md-4.text-right= link_to  chapter.author.nick_name, chapter.author
+
+    %h4
+      评论区
+
+    .novel_comments
+      - @novel.novel_comments.each do |novel_comment|
+        = render 'comments', novel_comment: novel_comment
+
+    - if logged_in?
+      %h4
+        写评论
+      .write_novel_comments
+        = form_for(:novel_comment, url: novel_comments_path) do |f|
+          = render 'shared/error_messages', object: f.object
+          = hidden_field_tag :novel_id, @novel.id
+          = f.text_area :content , class: 'form-control'
+          = f.button '提交', class: 'btn btn-default'

@@ -19,15 +19,14 @@ class ChaptersController < ApplicationController
   def create
     @novel=Novel.find(params[:novel_id])
     @chapter=Chapter.new
-    debugger
-    user= ( has_manage_novel_permission and params[:novel][:author_id]) ? User.find([:novel][:author_id]) : current_user
+    user= ( has_manage_novel_permission and !params[:author_name].blank?) ? User.find_by_user_name([:author_name]) : current_user
     params[:chapter][:number]=@novel.new_chapter_num(user)
-    if has_manage_novel_permission
-      success= @chapter.update_attributes(manage_novel_user_params)
-    else
-      success= @chapter.update_attributes(common_user_params)
+    params[:chapter][:author_id]=user.id
+    params[:chapter][:novel_id]=@novel.id
+    unless has_manage_novel_permission
+      params[:chapter][:status]=Chapter::Status::ACTIVE
     end
-    if success
+    if @chapter.update_attributes(chapter_params)
       flash[:success] = t('my.notice.add_success')
       redirect_to @novel
     else
@@ -49,13 +48,7 @@ class ChaptersController < ApplicationController
     @has_manage_novel_permission||=current_user.has_permission?(Permission::MANAGE_NOVELS)
   end
 
-  def common_user_params
-    manage_novel_user_params.permit(:novel_id, :number,
-                                    :cite_id, :title, :content,
-                                    :summary, :subsequent_summary, :foreshadowing)
-  end
-
-  def manage_novel_user_params
+  def chapter_params
     params.require(:chapter).permit(:novel_id, :number, :author_id,
                                     :status, :cite_id, :title, :content,
                                     :summary, :subsequent_summary, :foreshadowing)

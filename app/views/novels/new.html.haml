@@ -7,6 +7,7 @@
 .row
   .col-md-6.col-md-offset-3
     = form_for(@novel) do |f|
+      = render 'shared/error_messages', object: f.object
       = f.label :name, t('activerecord.attributes.novel.name')
       = f.text_field :name, class: 'form-control'
 

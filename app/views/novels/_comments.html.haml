@@ -1,0 +1,11 @@
+- user=novel_comment.user
+- if user
+  %table.novel_comment.table.table-striped
+    %tr.row
+      %td.col-md-4
+        = header_tag(novel_comment.user)
+        = novel_comment.user.nick_name
+      %td.col-md-8.text-right
+        = novel_comment.created_at
+    %tr.row
+      = to_html novel_comment.content
