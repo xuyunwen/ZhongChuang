@@ -1,0 +1,24 @@
+%header.navbar.navbar-fixed-top.navbar-inverse
+  .container
+    = link_to t('page_title.main'), root_path, id: "logo"
+    %nav
+      %ul.nav.navbar-nav.navbar-right
+        %li= link_to t('page_title.main'),   root_path
+        - if logged_in?
+          - if current_user.has_permission?(Permission::VIEW_USERS)
+            %li= link_to t('pages.header.user_manage'), users_path
+
+          %li= link_to t('pages.header.my_bookshelf'), '#'
+          %li.dropdown
+            %a.dropdown-toggle{href:'#', 'data-toggle' => 'dropdown'}
+              = current_user.nick_name
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to t('pages.header.profile'), current_user
+              %li= link_to t('pages.header.settings'), edit_user_path(current_user)
+              %li.divider
+              %li
+                = link_to t('pages.logout'), logout_path, method: :delete
+        - else
+          %li= link_to t('pages.login'), login_path
+          %li= link_to t('pages.signup'), signup_path

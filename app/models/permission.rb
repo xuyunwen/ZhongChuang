@@ -3,15 +3,26 @@ class Permission < ActiveRecord::Base
 
 
   @@all_permissions=[
-      ['READ_NOVEL', '读小说'],
-      ['WRITE_NOVEL', '写小说'],
-      ['COMMENT_NOVEL', '评论小说'],
-      ['CHANGE_NOVEL_STATUS', '修改小说状态'],
-      ['CHANGE_CHAPTER_STATUS', '修改章节状态'],
-      ['CHANGE_USER_GROUP', '修改用户分组'],
-      ['DELETE_USER', '删除用户'],
-      ['CHANGE_USER_LEVEL', '修改用户等级'],
-      ['ALL_USERS','所有用户']
+
+      %w(VIEW_USERS 查看所有用户),
+
+      %w(MANAGE_USER 管理用户),
+
+      %w(MANAGE_CATEGORY 管理分类),
+
+      %w(MANAGE_NOVEL 管理小说),
+
+      %w(MANAGE_CHAPTER 管理章节),
+
+      %w(COMMENT_NOVEL 评论小说),
+
+      %w(COMMENT_CHAPTER 评论章节),
+
+      %w(VOTE_CHAPTER 章节投票),
+
+      %w(MANAGE_ROLE 管理角色),
+
+      %w(WRITE_NOVEL 写章节),
   ]
 
   @@all_permissions.length.times do |i|

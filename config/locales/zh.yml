@@ -11,6 +11,7 @@ zh:
     contact: '联系我们'
 
   pages:
+    form_error_notice: '该页面包含%{count}个错误:'
     login: '登录'
     signup: '注册'
     logout: '注销'
@@ -22,6 +23,7 @@ zh:
     confirm: '确定?'
     header:
       my_bookshelf: '我的书架'
+      user_manage: '用户管理'
       profile: '个人资料'
       settings: '设置'
 

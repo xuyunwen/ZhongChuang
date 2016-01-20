@@ -22,19 +22,6 @@ user_groups.each{|i|
 }
 
 ## 权限初始化数据
-# permissions=[
-#     [Permission::READ_NOVEL, '读小说'],
-#     [Permission::WRITE_NOVEL, '写小说'],
-#     [Permission::COMMENT_NOVEL, '评论小说'],
-#     [Permission::CHANGE_NOVEL_STATUS, '修改小说状态'],
-#     [Permission::CHANGE_CHAPTER_STATUS, '修改章节状态'],
-#     [Permission::CHANGE_USER_GROUP, '修改用户分组'],
-#     [Permission::DELETE_USER, '删除用户'],
-#     [Permission::CHANGE_USER_LEVEL, '修改用户等级'],
-#   ]
-# permissions.each{|i|
-#   Permission.create!(id:i[0], describe: i[1])
-# }
 Permission.permissions.length.times do |i|
   begin
   Permission.create!(id:i, describe: Permission.permissions[i][1])
@@ -46,21 +33,19 @@ end
 
 ## 初始化权限
 user_group_own_permissions = [
-    [ UserGroup::COMMON_USER_GROUP_ID,	0,	Permission::READ_NOVEL          ],	# 普通0级用户可读小说
-    [ UserGroup::COMMON_USER_GROUP_ID,	0,	Permission::WRITE_NOVEL         ],	# 普通0级用户可写小说
-    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::COMMENT_NOVEL       ],	# 普通1级用户可写评论
-    [	UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::READ_NOVEL          ],	# 主编0级用户可读小说
-    [	UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::WRITE_NOVEL         ],	# 主编0级用户可写小说
-    [	UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::COMMENT_NOVEL       ],	# 主编0级用户可写评论
-    [	UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::CHANGE_NOVEL_STATUS],	# 主编0级用户可更改用户状态
-    [	UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::CHANGE_CHAPTER_STATUS],	# 主编0级用户可更改用户状态
-    # 管理员拥有所有权限
-    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::READ_NOVEL          ],
-    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::WRITE_NOVEL         ],
-    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::COMMENT_NOVEL       ],
-    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::CHANGE_NOVEL_STATUS],
-    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::CHANGE_CHAPTER_STATUS],
-    [	UserGroup::ADMIN_USER_GROUP_ID,	0,	Permission::DELETE_USER],
+    [ UserGroup::COMMON_USER_GROUP_ID,	0,	Permission::COMMENT_NOVEL          ],
+    [ UserGroup::COMMON_USER_GROUP_ID,	0,	Permission::COMMENT_CHAPTER         ],
+    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::VOTE_CHAPTER       ],
+    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::MANAGE_ROLE       ],
+    [ UserGroup::COMMON_USER_GROUP_ID,	1,	Permission::WRITE_NOVEL       ],
+
+    # 主编的权限
+    [ UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::COMMENT_NOVEL          ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	0,	Permission::COMMENT_CHAPTER         ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::VOTE_CHAPTER       ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::MANAGE_ROLE       ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::WRITE_NOVEL       ],
+
 
   ]
 (0..user_group_own_permissions.length-1).each{|i|
@@ -71,6 +56,15 @@ user_group_own_permissions = [
 # ignored
   end
 }
+# 管理员拥有所有权限
+Permission.permissions.length.times do |i|
+  begin
+    UserGroupOwnPermission.create!(user_group_id:UserGroup::ADMIN_USER_GROUP_ID,
+                                   user_level: 0, permission_id:i)
+  rescue
+# ignored
+  end
+end
 
 ## 小说分类
 categories = %w[玄幻 武侠 都市 仙侠 历史 言情 古典]

@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     convert_header_data
     @user=User.new(user_params)
     @user.level=0
-    @user.user_group_id=common_user_group.id
+    @user.user_group_id=UserGroup.common_user_group.id
 
     if @user.save
       log_in @user
