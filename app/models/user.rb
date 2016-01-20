@@ -45,6 +45,11 @@ class User < ActiveRecord::Base
     )
   end
 
+  def permissions
+    self.user_group.user_group_own_permissions
+        .where('user_level <= ?', self.level)
+  end
+
   # 检查用户是否拥有某权限
   def has_permission?(permission_id)
     self.user_group.user_group_own_permissions
