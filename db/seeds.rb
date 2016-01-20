@@ -83,6 +83,8 @@ admin_user_group=UserGroup.find(UserGroup::ADMIN_USER_GROUP_ID)
 
 ############################ 下面是测试数据 ################
 
+## 创建
+
 ## 添加小说 <左耳>
 
 zuo_dir='test_data/novels/zuo'
@@ -120,4 +122,6 @@ end
   novel.save
 
 }
+
+## 添加小说评论
 
