@@ -14,7 +14,11 @@ user_groups=[
     [UserGroup::ADMIN_USER_GROUP_ID, 'Admin'],
   ]
 user_groups.each{|i|
+  begin
   UserGroup.create!(id: i[0], name: i[1])
+  rescue
+# ignored
+  end
 }
 
 ## 权限初始化数据
@@ -32,7 +36,11 @@ user_groups.each{|i|
 #   Permission.create!(id:i[0], describe: i[1])
 # }
 Permission.permissions.length.times do |i|
-   Permission.create!(id:i, describe: Permission.permissions[i][1])
+  begin
+  Permission.create!(id:i, describe: Permission.permissions[i][1])
+   rescue
+# ignored
+  end
   # eval("#{permissions[i][0]}=#{i}")
 end
 
@@ -57,13 +65,21 @@ user_group_own_permissions = [
   ]
 (0..user_group_own_permissions.length-1).each{|i|
   ugop=user_group_own_permissions[i]
+  begin
   UserGroupOwnPermission.create!(id:i, user_group_id:ugop[0], user_level:ugop[1], permission_id:ugop[2])
+  rescue
+# ignored
+  end
 }
 
 ## 小说分类
 categories = %w[玄幻 武侠 都市 仙侠 历史 言情 古典]
 (0..categories.length-1).each{|i|
+  begin
   Category.create!(id:i, name:categories[i])
+  rescue
+  # ignored
+  end
 }
 
 
@@ -76,8 +92,12 @@ admins=[
 (0..admins.length-1).each{|i|
   user=admins[i]
   password_digest=User.digest user[3]
+  begin
   UserGroup.admin_user_group.users.create!(id:i, user_name:user[0], nick_name:user[1],
                                  level:user[2], password_digest: password_digest)
+  rescue
+# ignored
+  end
 }
 
 
@@ -131,6 +151,8 @@ common_user_number.times do |n|
   level = Faker::Number.between(0,10)
   password = '123456'
   header= generate_img ? get_pic_str(open(Faker::Avatar.image)) : nil
+
+  begin
   UserGroup.common_user_group.users.create(
                                        user_name: user_name,
                                        nick_name: nick_name,
@@ -139,6 +161,9 @@ common_user_number.times do |n|
                                        password_confirmation: password,
                                        header: header
   )
+  rescue
+# ignored
+  end
 end
 
 ## 创建主编
@@ -148,6 +173,7 @@ editor_user_number.times do |n|
   level = Faker::Number.between(0,10)
   password = '123456'
   header= generate_img ? get_pic_str(open(Faker::Avatar.image)) : nil
+  begin
   UserGroup.editor_user_group.users.create(
       user_name: user_name,
       nick_name: nick_name,
@@ -156,6 +182,9 @@ editor_user_number.times do |n|
       password_confirmation: password,
       header: header
   )
+  rescue
+# ignored
+  end
 end
 
 
@@ -167,12 +196,16 @@ novel_number.times{|n|
   category_id=category_ids.sample
   cover=generate_img ? get_pic_str(open(Faker::Avatar.image)) : nil
   status=[0,1].sample
+  begin
   Novel.create(name: name,
                description: description,
                category_id: category_id,
                cover: cover,
                status: status
   )
+  rescue
+# ignored
+  end
 }
 
 ## 添加小说评论
@@ -182,10 +215,14 @@ novel_comment_number.times{ |n|
   novel_id=novel_ids.sample
   user_id=user_ids.sample
   content=rand_sentences(3,15)
+  begin
   NovelComment.create(novel_id: novel_id,
                       user_id: user_id,
                       content: content
   )
+  rescue
+# ignored
+  end
 }
 
 ## 添加小说章节
@@ -200,6 +237,7 @@ chapter_number.times{|n|
   sss=Faker::Lorem::sentence(3)
   fs=Faker::Lorem::sentence(3)
   draft=false
+  begin
   Chapter.create(
              novel_id: novel_id,
              number: number,
@@ -212,6 +250,9 @@ chapter_number.times{|n|
              foreshadowing: fs,
              draft: false
   )
+  rescue
+# ignored
+  end
 }
 
 ## 添加章节评论
@@ -221,10 +262,14 @@ chapter_comment_number.times{ |n|
   chapter_id=chapter_ids.sample
   user_id=user_ids.sample
   content=rand_sentences(3,15)
+  begin
   ChapterComment.create(chapter_id: chapter_id,
                       user_id: user_id,
                       content: content
   )
+  rescue
+# ignored
+  end
 }
 
 ## 添加章节投票
@@ -239,12 +284,16 @@ role_number.times{|n|
   author=user_ids.sample
   name=Faker::Name.name
   profile=rand_sentences(3,10)
+  begin
   Role.create(
           novel_id: novel_id,
           author_id: author,
           name: name,
           profile: profile
   )
+  rescue
+# ignored
+  end
 }
 
 ## 添加小说 <左耳>
