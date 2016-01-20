@@ -8,6 +8,7 @@ class NovelsController < ApplicationController
   end
 
   def new
+    @novel=Novel.new
   end
 
   def show
@@ -24,10 +25,27 @@ class NovelsController < ApplicationController
   end
 
   def update
+    convert_cover_data
+    @novel = Novel.find(params[:id])
+    if @novel.update_attributes(novel_params)
+      flash[:success] = t('my.notice.update_success')
+      redirect_to @novel
+    else
+      render 'edit'
+    end
   end
 
   def edit
+    @novel=Novel.find(params[:id])
+  end
+
+  def novel_params
+    params.require(:novel).permit(:name, :cover, :category_id, :status, :description)
   end
 
 
+  def convert_cover_data
+    header_data=get_pic_str(params[:novel][:cover])
+    params[:novel][:cover]=header_data
+  end
 end

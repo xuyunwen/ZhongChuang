@@ -62,6 +62,15 @@ zh:
         nick_name: '昵称'
         header: '头像'
         login: "Handle"
+      novel:
+        name: '书名'
+        cover: '封面'
+        category_id: '分类'
+        description: '描述'
+        status:
+          working: '连载中'
+          finished: '已完结'
+
 
     errors:
       messages:

@@ -1,0 +1,23 @@
+- title="#{t('pages.edit')}小说: #{@novel.name}"
+- provide :title, title
+
+%h1
+  = title
+
+.row
+  .col-md-6.col-md-offset-3
+    = form_for(@novel) do |f|
+      = f.label :name, t('activerecord.attributes.novel.name')
+      = f.text_field :name, class: 'form-control'
+
+      = f.label :cover, t('activerecord.attributes.novel.cover')
+      = f.file_field :cover, class: 'form-control'
+
+      = f.label :description, t('activerecord.attributes.novel.description')
+      = f.text_area :description, class: 'form-control'
+
+
+      = f.label :category_id, t('activerecord.attributes.novel.category_id')
+      = f.collection_select :category_id, Category.all, :id, :name,prompt: true
+
+      = f.submit t('pages.edit'), class: 'btn btn-primary'
