@@ -1,11 +1,11 @@
-- provide :title, t('page_title.home')
+- provide :title, t('pages.header.novel_manage')
 
 %h3 连载小说
 
 .novels
   - Novel.working_novels.each do |novel|
     %li.novel
-      = link_to cover_tag(novel), novel
+      = link_to little_cover_tag(novel), novel
       %p
         = link_to novel.name, novel
 
@@ -15,6 +15,6 @@
 .novels
   - Novel.finished_novels.each do |novel|
     %li.novel
-      = link_to cover_tag(novel), novel
+      = link_to little_cover_tag(novel), novel
       %p
         = link_to novel.name, novel

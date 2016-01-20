@@ -24,6 +24,7 @@ zh:
     header:
       my_bookshelf: '我的书架'
       user_manage: '用户管理'
+      novel_manage: '小说管理'
       profile: '个人资料'
       settings: '设置'
 

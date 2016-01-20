@@ -8,6 +8,9 @@
           - if current_user.has_permission?(Permission::VIEW_USERS)
             %li= link_to t('pages.header.user_manage'), users_path
 
+          - if current_user.has_permission?(Permission::MANAGE_NOVEL)
+            %li= link_to t('pages.header.novel_manage'), novels_path
+
           %li= link_to t('pages.header.my_bookshelf'), '#'
           %li.dropdown
             %a.dropdown-toggle{href:'#', 'data-toggle' => 'dropdown'}

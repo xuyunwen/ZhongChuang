@@ -22,6 +22,9 @@ class Novel < ActiveRecord::Base
   def self.working_novels
     Novel.all.where(status: Status::WORKING)
   end
+  def self.finished_novels
+    Novel.all.where(status: Status::FINISHED)
+  end
 
   # 获取所有定版章节
   def all_finished_chapters
