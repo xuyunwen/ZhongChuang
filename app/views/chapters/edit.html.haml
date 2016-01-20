@@ -1,5 +1,5 @@
 
-- title="为 #{@novel.name} 添加新章节"
+- title="修改: 第 #{@chapter.number} 章 #{@chapter.title}"
 - provide :title, title
 
 %h3.text-center
@@ -12,10 +12,6 @@
   .col-md-6.col-md-offset-3
     = form_for(@chapter) do |f|
       = render 'shared/error_messages', object: f.object
-
-      - unless @chapter.cite_id.blank?
-        = hidden_field_tag :cite_id, @chapter.cite_id
-      = hidden_field_tag :novel_id, @novel.id
 
       - if @has_manage_novel_permission
         = f.label :number, t('activerecord.attributes.chapter.number')
@@ -43,4 +39,4 @@
       = f.label :foreshadowing, t('activerecord.attributes.chapter.foreshadowing')
       = f.text_area :foreshadowing, class: 'form-control'
 
-      = f.submit t('pages.add'), class: 'btn btn-primary'
+      = f.submit t('pages.edit'), class: 'btn btn-primary'

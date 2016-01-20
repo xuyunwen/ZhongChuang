@@ -56,9 +56,20 @@ class ChaptersController < ApplicationController
   end
 
   def update
+    @chapter = Chapter.find(params[:id])
+    user= ( has_manage_novel_permission and !params[:author_name].blank?) ? User.find_by_user_name([:author_name]) : current_user
+    params[:chapter][:author_id]=user.id
+    if @chapter.update_attributes(chapter_params)
+      flash[:success] = t('my.notice.update_success')
+      redirect_to @chapter.novel
+    else
+      render 'edit'
+    end
   end
 
   def edit
+    @chapter=Chapter.find(params[:id])
+    has_manage_novel_permission
   end
 
   def has_manage_novel_permission
