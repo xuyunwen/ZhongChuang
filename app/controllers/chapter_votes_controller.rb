@@ -4,11 +4,10 @@ class ChapterVotesController < ApplicationController
   def create
     rate=params[:rate]
     chapter_id=params[:chapter_id]
-    if current_user.vote_chapter(chapter_id, !!rate)
+    if current_user.vote_chapter(chapter_id, rate > '0' ? true : false)
       flash[:notice]='成功'
     else
       flash[:notice]=' 不能重复投票'
-
     end
     redirect_to request.referrer
   end

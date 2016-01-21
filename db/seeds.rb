@@ -45,6 +45,9 @@ user_group_own_permissions = [
     [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::VOTE_CHAPTERS       ],
     [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::MANAGE_ROLES       ],
     [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::WRITE_CHAPTERS       ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::MANAGE_CATEGORIES       ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::MANAGE_NOVELS       ],
+    [ UserGroup::EDITOR_USER_GROUP_ID,	1,	Permission::MANAGE_CHAPTERS       ],
 
 
   ]

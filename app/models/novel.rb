@@ -50,6 +50,16 @@ class Novel < ActiveRecord::Base
     last.nil?? 1 : (last.number + 1)
   end
 
+  # 获取所有概要
+  def all_summary
+    all_finished_chapters.reorder('number desc').select(:number, :title, :summary)
+  end
+
+  # 获取所有伏笔
+  def all_foreshadowing
+    all_finished_chapters.reorder('number desc').select(:number, :title, :foreshadowing)
+  end
+
   def new_chapter_num(user)
     last=all_finished_chapters.last
     my_active_chapter_num=chapters.where(author_id: user.id).order(:number).last

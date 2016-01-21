@@ -9,7 +9,12 @@
   第 #{@chapter.number} 章
 
 .row
-  .col-md-6.col-md-offset-3
+  .col-md-3
+    = render 'summary', novel: @novel
+    = render 'foreshadowing', novel: @novel
+
+
+  .col-md-6
     = form_for(@chapter) do |f|
       = render 'shared/error_messages', object: f.object
 
@@ -30,12 +35,11 @@
       = f.label :title, t('activerecord.attributes.chapter.title')
       = f.text_field :title, class: 'form-control'
 
-
-      = f.label :content, t('activerecord.attributes.chapter.content')
-      = f.text_area :content, class: 'form-control'
-
       = f.label :summary, t('activerecord.attributes.chapter.summary')
       = f.text_area :summary, class: 'form-control'
+
+      = f.label :content, t('activerecord.attributes.chapter.content')
+      = f.text_area :content, rows:40, class: 'form-control'
 
       = f.label :subsequent_summary, t('activerecord.attributes.chapter.subsequent_summary')
       = f.text_area :subsequent_summary, class: 'form-control'

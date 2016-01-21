@@ -79,6 +79,10 @@ zh:
         summary: '内容概要'
         subsequent_summary: '后续章节概要'
         foreshadowing: '伏笔'
+      user_group:
+        Admin: '管理员'
+        Editor: '编辑'
+        Common: '普通用户'
 
 
     errors:

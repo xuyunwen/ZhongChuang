@@ -15,6 +15,8 @@
           %li.dropdown
             %a.dropdown-toggle{href:'#', 'data-toggle' => 'dropdown'}
               = current_user.nick_name
+              - key_name = "activerecord.attributes.user_group.#{current_user.user_group.name}"
+              (#{ t(key_name) } #{ current_user.level } 级)
               %b.caret
             %ul.dropdown-menu
               %li= link_to t('pages.header.profile'), current_user

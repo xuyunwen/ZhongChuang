@@ -9,7 +9,11 @@
   第 #{@chapter.number} 章
 
 .row
-  .col-md-6.col-md-offset-3
+  .col-md-3
+    = render 'summary', novel: @chapter.novel
+    = render 'foreshadowing', novel: @chapter.novel
+
+  .col-md-6
     = form_for(@chapter) do |f|
       = render 'shared/error_messages', object: f.object
 

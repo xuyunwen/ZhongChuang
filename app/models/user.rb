@@ -44,6 +44,11 @@ class User < ActiveRecord::Base
          return false
        else
          am.first.destroy
+         ChapterVote.create(
+             chapter_id: chapter_id,
+             user_id: id,
+             rate: (positive ? level: -level)
+         )
        end
     else
       ChapterVote.create(

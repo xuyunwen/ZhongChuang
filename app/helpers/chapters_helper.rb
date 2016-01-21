@@ -8,4 +8,7 @@ module ChaptersHelper
     ]
   end
 
+  def full_number(chapter)
+    "第 #{chapter.number} 章 #{chapter.title}"
+  end
 end
