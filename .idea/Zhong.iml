@@ -150,6 +150,7 @@
     <orderEntry type="library" scope="PROVIDED" name="erubis (v2.7.0, RVM: ruby-2.0.0-p643) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="excon (v0.45.4, RVM: ruby-2.0.0-p643) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="execjs (v2.6.0, RVM: ruby-2.0.0-p643) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faker (v1.6.1, RVM: ruby-2.0.0-p643) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.9.10, RVM: ruby-2.0.0-p643) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fission (v0.5.0, RVM: ruby-2.0.0-p643) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fog (v1.36.0, RVM: ruby-2.0.0-p643) [gem]" level="application" />

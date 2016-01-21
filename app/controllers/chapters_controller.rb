@@ -23,19 +23,19 @@ class ChaptersController < ApplicationController
 
   def create
     cite_id=params[:cite_id]
-    novel=Novel.find(params[:novel_id])
+    @novel=Novel.find(params[:novel_id])
     @chapter=Chapter.new
     user= ( has_manage_novel_permission and !params[:author_name].blank?) ? User.find_by_user_name([:author_name]) : current_user
-    params[:chapter][:number]=novel.new_chapter_num(user)
+    params[:chapter][:number]=@novel.new_chapter_num(user)
     params[:chapter][:author_id]=user.id
-    params[:chapter][:novel_id]=novel.id
+    params[:chapter][:novel_id]=@novel.id
     params[:chapter][:cite_id]=cite_id
     unless has_manage_novel_permission
       params[:chapter][:status]=Chapter::Status::ACTIVE
     end
     if @chapter.update_attributes(chapter_params)
       flash[:success] = t('my.notice.add_success')
-      redirect_to novel
+      redirect_to @novel
     else
       render 'new'
     end
